@@ -4,31 +4,31 @@ Shader "URP/yuanshen" //Shader路径名
     {
         [Header(ShaderEnum)]
         [Space(5)]
-        [KeywordEnum(Base,Face,Hair)]_ShaderEnum("这是个Shader枚举类型哦宝贝",int)=0
-        [Toggle(IN_NIGHT)]_InNight ("现在是晚上吗宝贝", int) = 0
+        [KeywordEnum(Base,Face,Hair)]_ShaderEnum("Shader枚举类型",int)=0
+        [Toggle(IN_NIGHT)]_InNight ("是晚上吗", int) = 0
 
         [Header(BaseMap)]
         [Space(5)]
-        _BaseMap ("这是个基础贴图哦宝贝", 2D) = "white" {}
-        [HDR][MainColor]_BaseColor ("这是个基础色哦宝贝", Color) = (1, 1, 1, 1)
+        _MainTex ("基础贴图", 2D) = "white" {}
+        [HDR][MainColor]_MainColor ("基础色", Color) = (1, 1, 1, 1)
         [Space(30)]
 
         [Header(ParamTex)]
         [Space(5)]
-        _ParamTex ("这是个参数图哦宝贝（LightMap或FaceLightMap）", 2D) = "white" { }
+        _ParamTex ("参数图（LightMap或FaceLightMap）", 2D) = "white" { }
         [Space(30)]
 
         [Header(ShadowRamp)]
         [Space(5)]
-        _RampMap ("这是个Ramp图哦宝贝", 2D) = "white" { }
-        _RampMapYRange ("Ramp图要在Y轴那个值采样呢宝贝", Range(0.0,0.5)) = 1.0
+        _RampMap ("Ramp图", 2D) = "white" { }
+        _RampMapYRange ("Ramp图要在Y轴哪个值采样", Range(0.0,0.5)) = 1.0
         [Space(30)]
 
         [Header(Specular)]
         [Space(5)]
-        _Matcap ("这是个Matcap图哦宝贝", 2D) = "white" { }
-        _MetalColor("这是个金属颜色哦宝贝",Color)= (1,1,1,1)//
-        _HairSpecularIntensity("这是个头发高光强度哦宝贝",Range(0.0,10)) = 0.5
+        _Matcap ("Matcap图", 2D) = "white" { }
+        _MetalColor("金属颜色",Color)= (1,1,1,1)//
+        _HairSpecularIntensity("头发高光强度",Range(0.0,10)) = 0.5
 
         _HairSpecColor ("高光颜色",Color) = (1,1,1,1)
         _HairSpecularRange("头发高光范围",Float) =0.5
@@ -36,25 +36,25 @@ Shader "URP/yuanshen" //Shader路径名
         [Space(30)]
 
         [Space(5)]
-        _FaceShadowRangeSmooth ("脸部阴影转折要不要平滑呢宝贝", Range(0.01,1.0)) = 0.1
+        _FaceShadowRangeSmooth ("脸部阴影转折要不要平滑", Range(0.01,1.0)) = 0.1
         [Space(30)]
 
         [Header(RimLight)]
         [Space(5)]
-        _RimIntensity("边缘光要多亮呢宝贝",Range(0.0,5.0)) = 0
-        _RimRadius("边缘光要多大范围呢宝贝",Range(0.0,1.0)) = 0.1
+        _RimIntensity("边缘光亮度",Range(0.0,5.0)) = 0
+        _RimRadius("边缘光范围",Range(0.0,1.0)) = 0.1
         [Space(30)]
 
         [Header(Emission)]
         [Space(5)]
-        _EmissionIntensity("这是自发光强度哦宝贝",Range(0.0,25.0)) = 0.0//
+        _EmissionIntensity("自发光强度",Range(0.0,25.0)) = 0.0//
         [Space(30)]
 
 
         [Header(Outline)]
         [Space(5)]
-        _outlinecolor ("描个什么颜色的边呢宝贝", Color) = (0,0,0,1)
-        _outlinewidth ("描个多粗大的边呢宝贝", Range(0, 1)) = 0.01
+        _outlinecolor ("描边颜色", Color) = (0,0,0,1)
+        _outlinewidth ("描边粗细", Range(0, 1)) = 0.01
     }
 
     SubShader
@@ -81,8 +81,8 @@ Shader "URP/yuanshen" //Shader路径名
 
         CBUFFER_START(UnityPerMaterial) //缓冲区
 
-        float4 _BaseMap_ST;
-        float4 _BaseColor;
+        float4 _MainTex_ST;
+        float4 _MainColor;
 
         uniform float4 _ShadowMultColor; //阴影颜色
         uniform float4 _DarkShadowMultColor; //暗阴影颜色
@@ -108,8 +108,8 @@ Shader "URP/yuanshen" //Shader路径名
 
         CBUFFER_END
 
-        TEXTURE2D(_BaseMap);
-        SAMPLER(sampler_BaseMap);
+        TEXTURE2D(_MainTex);
+        SAMPLER(sampler_MainTex);
 
         TEXTURE2D(_ParamTex);
         SAMPLER(sampler_ParamTex);
@@ -269,7 +269,6 @@ Shader "URP/yuanshen" //Shader路径名
         }
         ENDHLSL
 
-        //第一个pass
         Pass
         {
             Name "FORWARD"
@@ -300,7 +299,7 @@ Shader "URP/yuanshen" //Shader路径名
             float4 frag(VertexOutput i) : COLOR //像素shader
             {
                 //各种贴图
-                half4 baseColor = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv0);
+                half4 baseColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv0) * _MainColor;
 
                 //#ifndef _SHADERENUM_FACE
                 float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex, sampler_ParamTex, i.uv0);
@@ -338,7 +337,6 @@ Shader "URP/yuanshen" //Shader路径名
             ENDHLSL
         }
 
-        //第二个pass
         Pass
         {
             Name "Outline"
@@ -364,12 +362,13 @@ Shader "URP/yuanshen" //Shader路径名
 
             float4 frag(VertexOutput i) : COLOR
             {
-                float4 var_MainTex = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv0);
+                float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv0);
                 float4 FinalColor = _outlinecolor * var_MainTex;
                 return FinalColor;
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
         UsePass "Universal Render Pipeline/Lit/ShadowCaster"
     }
 }

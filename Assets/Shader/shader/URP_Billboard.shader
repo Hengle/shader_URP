@@ -132,5 +132,6 @@ Shader "URP/Billboard"
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

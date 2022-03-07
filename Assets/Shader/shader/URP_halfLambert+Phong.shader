@@ -94,5 +94,6 @@ Shader "URP/halfLambert+Phong" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

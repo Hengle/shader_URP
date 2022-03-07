@@ -2,16 +2,20 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-[VolumeComponentMenu("Custom Post-processing/BokehBlur")]
-public class BokehBlur : CustomVolumeComponent
+[VolumeComponentMenu("Custom Post-processing/DOF_BokehBlur")]
+public class DOF_BokehBlur : CustomVolumeComponent
 {
     //散景模糊
     public ClampedFloatParameter blurSize = new ClampedFloatParameter(0f, 0f, 0.01f); //模糊强度
     public ClampedFloatParameter iterations = new ClampedFloatParameter(5, 1f, 500f); //迭代次数
-    public ClampedIntParameter RTDownSample = new ClampedIntParameter(1, 1, 10); //降采样次数
+    public ClampedIntParameter RTDownSample = new ClampedIntParameter(1, 1, 10); //降采样次数    //散景模糊
+    //景深
+    public ClampedFloatParameter start = new ClampedFloatParameter(0f, 0f, 10f); 
+    public ClampedFloatParameter end = new ClampedFloatParameter(4, 0f, 100f); 
+    public ClampedIntParameter density = new ClampedIntParameter(1, 1, 10); 
 
     Material material;
-    const string shaderName = "URP/Post/BokehBlur";
+    const string shaderName = "URP/Post/DOF_BokehBlur";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 
@@ -37,7 +41,11 @@ public class BokehBlur : CustomVolumeComponent
         //散景模糊
         material.SetFloat("_Iteration", iterations.value);
         material.SetFloat("_BlurSize", blurSize.value);
-        material.SetFloat("_DownSample", RTDownSample.value);
+        material.SetFloat("_DownSample", RTDownSample.value);     
+        //景深
+        material.SetFloat("_Start", start.value);
+        material.SetFloat("_End", end.value);
+        material.SetFloat("_Density", density.value);
 
         //利用缩放对图像进行降采样
         int rtW = renderingData.cameraData.cameraTargetDescriptor.width / RTDownSample.value;

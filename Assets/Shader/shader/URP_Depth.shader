@@ -28,7 +28,7 @@ Shader "URP/Depth"
 
         TEXTURE2D(_MainTex);
         SAMPLER(sampler_MainTex);
-        
+
         SAMPLER(_CameraDepthTexture);
 
         struct VertexInput
@@ -131,5 +131,6 @@ Shader "URP/Depth"
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

@@ -157,5 +157,6 @@ Shader "URP/Decal"
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
-} 
+}

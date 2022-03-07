@@ -92,5 +92,6 @@ Shader "URP/ScreenWarp" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

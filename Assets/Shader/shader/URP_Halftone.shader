@@ -95,5 +95,6 @@ Shader "URP/Halftone"
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

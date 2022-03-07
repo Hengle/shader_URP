@@ -20,66 +20,66 @@ Shader "URP/Sequence" //Shader路径名
             "ForceNoShadowCasting"="True" // 关闭阴影投射
             "IgnoreProjector"="True" // 不响应投射器
         }
-//        Pass
-//        {
-//            Name "FORWARD_AB"
-//            Tags
-//            {
-//                "LightMode"="UniversalForward"
-//            }
-//            Blend One One // 修改混合方式One/SrcAlpha OneMinusSrcAlpha
-//
-//            HLSLPROGRAM
-//            #pragma vertex vert
-//            #pragma fragment frag
-//
-//            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
-//            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
-//            #pragma multi_compile _ _SHADOWS_SOFT//柔化阴影，得到软阴影
-//
-//            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-//
-//            CBUFFER_START(UnityPerMaterial) //缓冲区
-//            // 输入参数
-//            uniform half _Opacity;
-//            CBUFFER_END
-//
-//            TEXTURE2D(_MainTex);
-//            SAMPLER(sampler_MainTex);
-//
-//            // 输入结构
-//            struct VertexInput
-//            {
-//                float4 vertex : POSITION; // 顶点位置 总是必要
-//                float2 uv : TEXCOORD0; // UV信息 采样贴图用
-//            };
-//
-//            // 输出结构
-//            struct VertexOutput
-//            {
-//                float4 pos : SV_POSITION; // 顶点位置 总是必要
-//                float2 uv : TEXCOORD0; // UV信息 采样贴图用
-//            };
-//
-//            // 输入结构>>>顶点Shader>>>输出结构
-//            VertexOutput vert(VertexInput v)
-//            {
-//                VertexOutput o = (VertexOutput)0;
-//                o.pos = TransformObjectToHClip(v.vertex); // 顶点位置 OS>CS
-//                o.uv = v.uv; // UV信息 
-//                return o;
-//            }
-//
-//            // 输出结构>>>像素
-//            float4 frag(VertexOutput i) : COLOR
-//            {
-//                half4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv); // 采样贴图 RGB颜色 A透贴
-//                half3 finalRGB = var_MainTex.rgb;
-//                half opacity = var_MainTex.a * _Opacity;
-//                return half4(finalRGB * opacity, opacity); // 返回值
-//            }
-//            ENDHLSL
-//        }
+        //        Pass
+        //        {
+        //            Name "FORWARD_AB"
+        //            Tags
+        //            {
+        //                "LightMode"="UniversalForward"
+        //            }
+        //            Blend One One // 修改混合方式One/SrcAlpha OneMinusSrcAlpha
+        //
+        //            HLSLPROGRAM
+        //            #pragma vertex vert
+        //            #pragma fragment frag
+        //
+        //            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+        //            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+        //            #pragma multi_compile _ _SHADOWS_SOFT//柔化阴影，得到软阴影
+        //
+        //            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+        //
+        //            CBUFFER_START(UnityPerMaterial) //缓冲区
+        //            // 输入参数
+        //            uniform half _Opacity;
+        //            CBUFFER_END
+        //
+        //            TEXTURE2D(_MainTex);
+        //            SAMPLER(sampler_MainTex);
+        //
+        //            // 输入结构
+        //            struct VertexInput
+        //            {
+        //                float4 vertex : POSITION; // 顶点位置 总是必要
+        //                float2 uv : TEXCOORD0; // UV信息 采样贴图用
+        //            };
+        //
+        //            // 输出结构
+        //            struct VertexOutput
+        //            {
+        //                float4 pos : SV_POSITION; // 顶点位置 总是必要
+        //                float2 uv : TEXCOORD0; // UV信息 采样贴图用
+        //            };
+        //
+        //            // 输入结构>>>顶点Shader>>>输出结构
+        //            VertexOutput vert(VertexInput v)
+        //            {
+        //                VertexOutput o = (VertexOutput)0;
+        //                o.pos = TransformObjectToHClip(v.vertex); // 顶点位置 OS>CS
+        //                o.uv = v.uv; // UV信息 
+        //                return o;
+        //            }
+        //
+        //            // 输出结构>>>像素
+        //            float4 frag(VertexOutput i) : COLOR
+        //            {
+        //                half4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv); // 采样贴图 RGB颜色 A透贴
+        //                half3 finalRGB = var_MainTex.rgb;
+        //                half opacity = var_MainTex.a * _Opacity;
+        //                return half4(finalRGB * opacity, opacity); // 返回值
+        //            }
+        //            ENDHLSL
+        //        }
 
         Pass
         {
@@ -155,5 +155,6 @@ Shader "URP/Sequence" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

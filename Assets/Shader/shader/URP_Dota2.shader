@@ -165,7 +165,7 @@ Shader "URP/Dota2" //Shader路径名
                 float3 lDirWS = normalize(mylight.direction);
                 half3 lrDirWS = reflect(-lDirWS, nDirWS);
                 // 中间量准备
-                half ndotl = dot(nDirWS, lDirWS) ;
+                half ndotl = dot(nDirWS, lDirWS);
                 half ndotv = dot(nDirWS, vDirWS);
                 half vdotr = dot(vDirWS, lrDirWS);
                 // 采样纹理
@@ -267,6 +267,8 @@ Shader "URP/Dota2" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
         UsePass "Universal Render Pipeline/Lit/ShadowCaster"
     }
+
 }

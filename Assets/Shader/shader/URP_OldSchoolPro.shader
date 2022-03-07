@@ -144,7 +144,7 @@ Shader "URP/OldSchoolPro" //Shader路径名
                 float3 nDirWS = normalize(mul(nDirTS, TBN));
                 float3 vDirWS = normalize(_WorldSpaceCameraPos.xyz - i.posWS.xyz);
                 float3 vrDirWS = reflect(-vDirWS, nDirWS);
-                
+
                 Light mylight = GetMainLight(TransformWorldToShadowCoord(i.posWS));
                 float3 lDirWS = normalize(mylight.direction);
                 float3 lrDirWS = reflect(-lDirWS, nDirWS);
@@ -238,6 +238,7 @@ Shader "URP/OldSchoolPro" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
         UsePass "Universal Render Pipeline/Lit/ShadowCaster"
     }
 }

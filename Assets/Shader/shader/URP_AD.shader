@@ -24,11 +24,11 @@ Shader "AP01/L13/AD" //Shader路径名
                 "LightMode"="UniversalForward"
             }
             Blend One One // 修改混合方式One/SrcAlpha OneMinusSrcAlpha
-            
+
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            
+
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
             #pragma multi_compile _ _SHADOWS_SOFT//柔化阴影，得到软阴影
@@ -39,10 +39,10 @@ Shader "AP01/L13/AD" //Shader路径名
             uniform float4 _MainTex_ST;
             uniform half _Opacity;
             CBUFFER_END
-            
+
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
-            
+
             // 输入结构
             struct VertexInput
             {
@@ -69,12 +69,13 @@ Shader "AP01/L13/AD" //Shader路径名
             // 输出结构>>>像素
             float4 frag(VertexOutput i) : COLOR
             {
-                half4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv0);  // 采样贴图 RGB颜色 A透贴不必须
+                half4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv0); // 采样贴图 RGB颜色 A透贴不必须
                 half3 finalRGB = var_MainTex.rgb;
                 half opacity = var_MainTex.a * _Opacity;
                 return half4(finalRGB * opacity, opacity); // 返回值
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

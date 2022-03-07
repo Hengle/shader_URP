@@ -94,5 +94,6 @@ Shader "URP/ScreenUV" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

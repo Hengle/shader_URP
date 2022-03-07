@@ -210,13 +210,13 @@ Shader "URP/PBR"//Shader路径名
 
                 //高光部分完成
                 //后面是漫反射
-                
+
                 //根据上面的能量守恒关系，可以先计算镜面反射部分，此部分等于入射光线被反射的能量所占的百分比。
                 //而折射部分可以由镜面反射部分计算得出。
 
-                float3 KS = F;//反射/入射光线
+                float3 KS = F; //反射/入射光线
 
-                float3 KD = (1 - KS) * (1 - Metallic);//(1 - KS)=折射/入射光线,镜面反射部分与漫反射部分的和肯定不会超过1.0，从而近似达到能量守恒的目的。
+                float3 KD = (1 - KS) * (1 - Metallic); //(1 - KS)=折射/入射光线,镜面反射部分与漫反射部分的和肯定不会超过1.0，从而近似达到能量守恒的目的。
 
                 float3 DirectDiffColor = KD * Albedo * mainLight.shadowAttenuation * mainLight.color * NdotL;
                 //分母要除PI 但是积分后乘PI 就没写
@@ -246,11 +246,11 @@ Shader "URP/PBR"//Shader路径名
                 //间接光照的高光反射本质是对于反射探针(360全景相机)拍的一张图进行采样，把采样到的颜色当成光照去进行计算，
                 //这种光照称为基于图像的光照IBL(lmage-BasedLighting)，前面的漫反射也是IBL。
 
-                float3 IndirSpeCubeColor = IndirSpeCube(N, V, roughness, AO);//间接光高光反射探针
+                float3 IndirSpeCubeColor = IndirSpeCube(N, V, roughness, AO); //间接光高光反射探针
 
                 //return float4(IndirSpeCubeColor,1);
 
-                float3 IndirSpeCubeFactor = IndirSpeFactor(roughness, smoothness, BRDFSpeSection, F0, NdotV);//间接高光曲线拟合放弃LUT采样而使用曲线拟合
+                float3 IndirSpeCubeFactor = IndirSpeFactor(roughness, smoothness, BRDFSpeSection, F0, NdotV); //间接高光曲线拟合放弃LUT采样而使用曲线拟合
 
                 float3 IndirSpeColor = IndirSpeCubeColor * IndirSpeCubeFactor; //
 
@@ -309,6 +309,7 @@ Shader "URP/PBR"//Shader路径名
             #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 
 }

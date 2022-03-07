@@ -74,5 +74,6 @@ Shader "URP/AC" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

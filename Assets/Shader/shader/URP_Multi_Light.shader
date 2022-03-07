@@ -115,5 +115,6 @@ Shader "URP/Multi_Light"
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

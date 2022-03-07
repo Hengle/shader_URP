@@ -168,7 +168,7 @@ Shader "URP/CyberPunk" //Shader路径名
             VertexOutput vert(VertexInput v) //顶点shader
             {
                 // 采样纹理
-                float noise = SAMPLE_TEXTURE2D_LOD(_EffMap02, sampler_EffMap02, v.uv1, 0).r;//采样纹理的 mip 级别
+                float noise = SAMPLE_TEXTURE2D_LOD(_EffMap02, sampler_EffMap02, v.uv1, 0).r; //采样纹理的 mip 级别
 
                 // 输出结构
                 VertexOutput o = (VertexOutput)0;
@@ -261,81 +261,82 @@ Shader "URP/CyberPunk" //Shader路径名
             ENDHLSL
         }
 
-//        Pass
-//        {
-//            Name "Outline"
-//            Tags
-//            {
-//            }
-//            Cull Front
-//
-//            HLSLPROGRAM
-//            #pragma vertex vert
-//            #pragma fragment frag
-//
-//            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-//
-//            CBUFFER_START(UnityPerMaterial) //缓冲区
-//            //Outline
-//            uniform float4 _outlinecolor;
-//            uniform float _outlinewidth;
-//            CBUFFER_END
-//
-//            struct VertexInput
-//            {
-//                float4 vertex : POSITION;
-//                float3 normal : NORMAL;
-//            };
-//
-//            struct VertexOutput
-//            {
-//                float4 pos : SV_POSITION;
-//            };
-//
-//            VertexOutput vert(VertexInput v)
-//            {
-//                VertexOutput o = (VertexOutput)0;
-//                o.pos = TransformObjectToHClip(float4(v.vertex.xyz + v.normal * _outlinewidth, 1));
-//                return o;
-//            }
-//
-//            float4 frag(VertexOutput i) : COLOR
-//            {
-//                return float4(_outlinecolor.rgb, 0);
-//            }
-//            ENDHLSL
-//        }
-//
-//        Pass
-//        {
-//            Name "Shadow"
-//            Tags
-//            {
-//                "LightMode"="ShadowCaster"
-//            }
-//
-//            ZWrite On
-//            ZTest LEqual
-//            Cull[_Cull]
-//
-//            HLSLPROGRAM
-//            #pragma prefer_hlslcc gles
-//            #pragma exclude_renderers d3d11_9x
-//            #pragma target 3.0
-//
-//            #pragma shader_feature _ALPHATEST_ON
-//            #pragma shader_feature _GLOSSINESS_FROM_BASE_ALPHA
-//
-//            #pragma multi_compile_instancing
-//
-//            #pragma vertex ShadowPassVertex
-//            #pragma fragment ShadowPassFragment
-//
-//            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-//            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
-//            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
-//            ENDHLSL
-//        }
-//        UsePass "Universal Render Pipeline/Lit/ShadowCaster"
+        //        Pass
+        //        {
+        //            Name "Outline"
+        //            Tags
+        //            {
+        //            }
+        //            Cull Front
+        //
+        //            HLSLPROGRAM
+        //            #pragma vertex vert
+        //            #pragma fragment frag
+        //
+        //            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+        //
+        //            CBUFFER_START(UnityPerMaterial) //缓冲区
+        //            //Outline
+        //            uniform float4 _outlinecolor;
+        //            uniform float _outlinewidth;
+        //            CBUFFER_END
+        //
+        //            struct VertexInput
+        //            {
+        //                float4 vertex : POSITION;
+        //                float3 normal : NORMAL;
+        //            };
+        //
+        //            struct VertexOutput
+        //            {
+        //                float4 pos : SV_POSITION;
+        //            };
+        //
+        //            VertexOutput vert(VertexInput v)
+        //            {
+        //                VertexOutput o = (VertexOutput)0;
+        //                o.pos = TransformObjectToHClip(float4(v.vertex.xyz + v.normal * _outlinewidth, 1));
+        //                return o;
+        //            }
+        //
+        //            float4 frag(VertexOutput i) : COLOR
+        //            {
+        //                return float4(_outlinecolor.rgb, 0);
+        //            }
+        //            ENDHLSL
+        //        }
+        //
+        //        Pass
+        //        {
+        //            Name "Shadow"
+        //            Tags
+        //            {
+        //                "LightMode"="ShadowCaster"
+        //            }
+        //
+        //            ZWrite On
+        //            ZTest LEqual
+        //            Cull[_Cull]
+        //
+        //            HLSLPROGRAM
+        //            #pragma prefer_hlslcc gles
+        //            #pragma exclude_renderers d3d11_9x
+        //            #pragma target 3.0
+        //
+        //            #pragma shader_feature _ALPHATEST_ON
+        //            #pragma shader_feature _GLOSSINESS_FROM_BASE_ALPHA
+        //
+        //            #pragma multi_compile_instancing
+        //
+        //            #pragma vertex ShadowPassVertex
+        //            #pragma fragment ShadowPassFragment
+        //
+        //            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+        //            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
+        //            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+        //            ENDHLSL
+        //        }
+        //        UsePass "Universal Render Pipeline/Lit/ShadowCaster"
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

@@ -96,5 +96,6 @@ Shader "URP/Rust"
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

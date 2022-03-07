@@ -32,6 +32,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: f965e7ca85515254cae479830e853c8a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: cc40bc9633d7143469c9565958bcc96b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Matcap:
         m_Texture: {fileID: 2800000, guid: e757b3bfe81dfb84a880d9350851b801, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -44,7 +48,6 @@ Material:
         m_Texture: {fileID: 2800000, guid: c9f86ac730e3b5b48806d5cc5837113d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _DarkShadowArea: 0.5
     - _DarkShadowSmooth: 0.05
@@ -89,6 +92,7 @@ Material:
     - _DarkSideRimColor: {r: 0.4627451, g: 0.4627451, b: 0.4627451, a: 1}
     - _HairSpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _LightSpecColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _MetalColor: {r: 1, g: 1, b: 1, a: 1}
     - _RampArea12: {r: -50, g: 1, b: -50, a: 4}
     - _RampArea34: {r: -50, g: 0, b: -50, a: 2}

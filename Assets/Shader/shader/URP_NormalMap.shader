@@ -64,11 +64,11 @@ Shader "URP/NormalMap" //Shader路径名
                 VertexOutput o = (VertexOutput)0; // 新建一个输出结构
                 o.pos = TransformObjectToHClip(v.vertex); // 变换顶点信息 并将其塞给输出结构
                 o.uv0 = TRANSFORM_TEX(v.uv0, _NormalMap); // 传递UV信息
-                
+
                 o.nDirWS = TransformObjectToWorldNormal(v.normal); // 变换法线信息 并将其塞给输出结构
                 o.tDirWS = normalize(mul(unity_ObjectToWorld, float4(v.tangent.xyz, 0.0)).xyz); // 世界空间切线信息
                 o.bDirWS = normalize(cross(o.nDirWS, o.tDirWS) * v.tangent.w); // 世界空间切线信息
-                
+
                 return o; // 将输出结构 输出
             }
 
@@ -94,5 +94,6 @@ Shader "URP/NormalMap" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

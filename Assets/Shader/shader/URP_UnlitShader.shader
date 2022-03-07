@@ -68,5 +68,6 @@ Shader "URP/UnlitShader" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

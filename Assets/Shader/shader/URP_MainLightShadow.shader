@@ -97,6 +97,7 @@ Shader "URP/MainLightShadow"
             ENDHLSL
 
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
         UsePass "Universal Render Pipeline/Lit/ShadowCaster"
     }
 }

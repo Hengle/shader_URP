@@ -158,7 +158,7 @@ Shader "URP/ShadowCaster"
                 #if UNITY_REVERSE_Z
                     o.pos.z=min(o.pos.z,o.pos.w*UNITY_NEAR_CLIP_VALUE);
                 #else
-                    o.pos.z = max(o.pos.z, o.pos.w * UNITY_NEAR_CLIP_VALUE);
+                o.pos.z = max(o.pos.z, o.pos.w * UNITY_NEAR_CLIP_VALUE);
                 #endif
 
                 return o;
@@ -175,5 +175,6 @@ Shader "URP/ShadowCaster"
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

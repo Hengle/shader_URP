@@ -97,5 +97,6 @@ Shader "URP/Rotation" //Shader路径名
             }
             ENDHLSL
         }
+        UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }
