@@ -1,19 +1,22 @@
+using System.Collections.Concurrent;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering.Universal;
 
-[VolumeComponentMenu("Custom Post-processing/GlitchRGBSplit")]
-public class GlitchRGBSplit : CustomVolumeComponent
+
+[VolumeComponentMenu(VolumeDefine.Glitch + "RGB颜色分离 (RGB SplitV2)")]
+public class GlitchRGBSplitV2 : CustomVolumeComponent
 {
-    public ClampedFloatParameter amount = new ClampedFloatParameter(0f, 0f, 5f);
-    public ClampedFloatParameter speed = new ClampedFloatParameter(1f, 0f, 10f);
-    public ClampedFloatParameter fading = new ClampedFloatParameter(1f, 0f, 1f);
-    public ClampedFloatParameter centerFading = new ClampedFloatParameter(1f, 0f, 1f);
-    public ClampedFloatParameter amountR = new ClampedFloatParameter(1f, 0f, 5f);
+    public DirectionEXParameter SplitDirection = new DirectionEXParameter(DirectionEX.Horizontal);
+
+    public ClampedFloatParameter amount = new ClampedFloatParameter(0f, 0f, 1f);
+    public ClampedFloatParameter amplitude = new ClampedFloatParameter(3f, 1f, 6f);
+    public ClampedFloatParameter speed = new ClampedFloatParameter(1f, 0f, 2f);
     private float TimeX = 1.0f;
 
     Material material;
-    const string shaderName = "URP/Post/GlitchRGBSplit";
+    const string shaderName = "URP/Post/GlitchRGBSplitV2";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 
@@ -42,16 +45,13 @@ public class GlitchRGBSplit : CustomVolumeComponent
             TimeX = 0;
         }
 
-        material.SetFloat("_Fading", amount.value);
-        material.SetFloat("_Amount", speed.value);
-        material.SetFloat("_Speed", fading.value);
-        material.SetFloat("_CenterFading", centerFading.value);
-        material.SetFloat("_TimeX", TimeX);
-        material.SetFloat("_AmountR", amountR.value);
+        material.SetFloat("_Amount", amount.value);
+        material.SetFloat("_Amplitude", amplitude.value);
+        material.SetFloat("_TimeX", TimeX * speed.value);
 
 
         //临时RT到目标纹理
-        cmd.Blit(source, destination, material);
+        cmd.Blit(source, destination, material, (int) SplitDirection.value);
     }
 
     public override void Dispose(bool disposing)

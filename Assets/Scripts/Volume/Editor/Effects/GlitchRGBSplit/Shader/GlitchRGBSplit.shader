@@ -3,13 +3,6 @@
     Properties
     {
         _MainTex ("Base (RGB)", 2D) = "white" {}
-
-        _Fading ("Fading", Float) = 1.0
-        _Amount ("Amount", int) = 3
-        _Speed ("Speed", int) = 2
-        _CenterFading ("CenterFading", Float) = 0.0
-        _TimeX ("TimeX", Float) = 1.0
-        _AmountR ("AmountR", Float) = 1.0
     }
 
     SubShader
@@ -19,10 +12,10 @@
 
         CBUFFER_START(UnityPerMaterial)
 
-        float _Fading;
         float _Amount;
         float _Speed;
-        float _CenterFading;
+        float _Fading;//衰减
+        float _CenterFading;//中心的衰落
         float _TimeX;
         float _AmountR;
         float _AmountB;
@@ -134,22 +127,22 @@
             #pragma fragment Frag_Horizontal
             ENDHLSL
         }
-        //        Pass
-        //        {
-        //            HLSLPROGRAM
-        //            #pragma vertex VertDefault
-        //            #pragma fragment Frag_Vertical
-        //            ENDHLSL
-        //
-        //        }
-        //
-        //        Pass
-        //        {
-        //            HLSLPROGRAM
-        //            #pragma vertex VertDefault
-        //            #pragma fragment Frag_Horizontal_Vertical
-        //            ENDHLSL
-        //
-        //        }
+        Pass
+        {
+            HLSLPROGRAM
+            #pragma vertex VertDefault
+            #pragma fragment Frag_Vertical
+            ENDHLSL
+
+        }
+
+        Pass
+        {
+            HLSLPROGRAM
+            #pragma vertex VertDefault
+            #pragma fragment Frag_Horizontal_Vertical
+            ENDHLSL
+
+        }
     }
 }

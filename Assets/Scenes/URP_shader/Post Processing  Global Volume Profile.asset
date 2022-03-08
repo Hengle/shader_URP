@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8608271066258670771
+--- !u!114 &-4915965394078940534
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89b3284045765c42a2e2b22cfad2ebb, type: 3}
   m_Name: GlitchRGBSplit
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
-  amount:
+  SplitDirection:
     m_OverrideState: 1
     m_Value: 0
+  amount:
+    m_OverrideState: 1
+    m_Value: 0.8
     min: 0
     max: 5
   speed:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2.2
     min: 0
     max: 10
   fading:
@@ -39,7 +42,28 @@ MonoBehaviour:
     m_Value: 1
     min: 0
     max: 5
---- !u!114 &-8106482979422325525
+  amountB:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 5
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Post Processing  Global Volume Profile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: -4915965394078940534}
+  - {fileID: 4931909924435394359}
+  - {fileID: 9026399469725604866}
+--- !u!114 &4931909924435394359
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,20 +79,20 @@ MonoBehaviour:
   m_AdvancedMode: 0
   blurSize:
     m_OverrideState: 1
-    m_Value: 0.0042
+    m_Value: 0.0013
     min: 0
     max: 0.01
   iterations:
     m_OverrideState: 1
-    m_Value: 23
+    m_Value: 67
     min: 1
     max: 500
   RTDownSample:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 1
     min: 1
     max: 10
---- !u!114 &-2828292000742807298
+--- !u!114 &9026399469725604866
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,54 +101,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff1bd36b92b63e48958cff894fa0bb8, type: 3}
-  m_Name: DOF_BokehBlur
+  m_Script: {fileID: 11500000, guid: 2f936816822a10845bc79c1328b0c50d, type: 3}
+  m_Name: GlitchRGBSplitV2
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
-  blurSize:
+  SplitDirection:
     m_OverrideState: 1
-    m_Value: 0.00354
-    min: 0
-    max: 0.01
-  iterations:
+    m_Value: 0
+  amount:
     m_OverrideState: 1
-    m_Value: 23
-    min: 1
-    max: 500
-  RTDownSample:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 1
-    max: 10
-  distance:
-    m_OverrideState: 1
-    m_Value: 0.28
-    min: 0
-    max: 2
-  lensCoeff:
-    m_OverrideState: 1
-    m_Value: 0.14
+    m_Value: 0.93
     min: 0
     max: 1
-  rcpMaxCoC:
+  amplitude:
     m_OverrideState: 1
-    m_Value: 2.36
+    m_Value: 3
+    min: 1
+    max: 6
+  speed:
+    m_OverrideState: 1
+    m_Value: 1
     min: 0
-    max: 10
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Post Processing  Global Volume Profile
-  m_EditorClassIdentifier: 
-  components:
-  - {fileID: -2828292000742807298}
-  - {fileID: -8106482979422325525}
-  - {fileID: -8608271066258670771}
+    max: 2
