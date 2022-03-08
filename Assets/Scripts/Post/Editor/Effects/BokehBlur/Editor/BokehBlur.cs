@@ -2,22 +2,16 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-[VolumeComponentMenu("Custom Post-processing/DOF_BokehBlur")]
-public class DOF_BokehBlur : CustomVolumeComponent
+[VolumeComponentMenu("Custom Post-processing/BokehBlur")]
+public class BokehBlur : CustomVolumeComponent
 {
     //散景模糊
     public ClampedFloatParameter blurSize = new ClampedFloatParameter(0f, 0f, 0.01f); //模糊强度
-    public ClampedFloatParameter iterations = new ClampedFloatParameter(5f, 1f, 500f); //迭代次数
-
-    public ClampedIntParameter RTDownSample = new ClampedIntParameter(1, 1, 10); //降采样次数    //散景模糊
-
-    //景深
-    public ClampedFloatParameter distance = new ClampedFloatParameter(0.001f, 0f, 2f);
-    public ClampedFloatParameter lensCoeff = new ClampedFloatParameter(0f, 0f, 1f);
-    public ClampedFloatParameter rcpMaxCoC = new ClampedFloatParameter(1f, 0f, 10f);
+    public ClampedFloatParameter iterations = new ClampedFloatParameter(5, 1f, 500f); //迭代次数
+    public ClampedIntParameter RTDownSample = new ClampedIntParameter(1, 1, 10); //降采样次数
 
     Material material;
-    const string shaderName = "URP/Post/DOF_BokehBlur";
+    const string shaderName = "URP/Post/BokehBlur";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 
@@ -43,11 +37,7 @@ public class DOF_BokehBlur : CustomVolumeComponent
         //散景模糊
         material.SetFloat("_Iteration", iterations.value);
         material.SetFloat("_BlurSize", blurSize.value);
-        material.SetInt("_DownSample", RTDownSample.value);
-        //景深
-        material.SetFloat("_Distance", distance.value);
-        material.SetFloat("_LensCoeff", lensCoeff.value);
-        material.SetFloat("_RcpMaxCoC", rcpMaxCoC.value);
+        material.SetFloat("_DownSample", RTDownSample.value);
 
         //利用缩放对图像进行降采样
         int rtW = renderingData.cameraData.cameraTargetDescriptor.width / RTDownSample.value;
@@ -63,7 +53,7 @@ public class DOF_BokehBlur : CustomVolumeComponent
 
         //临时RT到目标纹理
         cmd.Blit(buffer0, destination, material);
-        RenderTexture.ReleaseTemporary(buffer0);//释放buffer0
+        RenderTexture.ReleaseTemporary(buffer0); //释放buffer0
     }
 
     public override void Dispose(bool disposing)
