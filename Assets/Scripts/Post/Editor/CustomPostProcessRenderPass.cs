@@ -78,6 +78,8 @@ public class CustomPostProcessRenderPass : ScriptableRenderPass
         var descriptor = renderingData.cameraData.cameraTargetDescriptor;
         descriptor.msaaSamples = 1; //RenderTexture的多采样抗锯齿级别。
         descriptor.depthBufferBits = 0; //渲染纹理深度缓冲的精度以比特位为单位(支持0,16,24/32)。
+        // descriptor.width = descriptor.width / 2;
+        // descriptor.height = descriptor.height / 2;
 
         // 初始化临时RT
         RenderTargetIdentifier buff0, buff1; //标识一个渲染CommandBuffer的RenderTexture

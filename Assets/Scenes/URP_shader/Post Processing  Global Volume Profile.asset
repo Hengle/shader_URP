@@ -29,6 +29,50 @@ MonoBehaviour:
     m_Value: 1
     min: 1
     max: 10
+--- !u!114 &-2828292000742807298
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff1bd36b92b63e48958cff894fa0bb8, type: 3}
+  m_Name: DOF_BokehBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  blurSize:
+    m_OverrideState: 1
+    m_Value: 0.00079
+    min: 0
+    max: 0.01
+  iterations:
+    m_OverrideState: 1
+    m_Value: 209
+    min: 1
+    max: 500
+  RTDownSample:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 1
+    max: 10
+  distance:
+    m_OverrideState: 1
+    m_Value: 0.28
+    min: 0
+    max: 2
+  lensCoeff:
+    m_OverrideState: 1
+    m_Value: 0.184
+    min: 0
+    max: 1
+  rcpMaxCoC:
+    m_OverrideState: 1
+    m_Value: 2.36
+    min: 0
+    max: 10
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,49 +86,5 @@ MonoBehaviour:
   m_Name: Post Processing  Global Volume Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 4789192338768903887}
+  - {fileID: -2828292000742807298}
   - {fileID: -8106482979422325525}
---- !u!114 &4789192338768903887
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff1bd36b92b63e48958cff894fa0bb8, type: 3}
-  m_Name: DOF_BokehBlur
-  m_EditorClassIdentifier: 
-  active: 0
-  m_AdvancedMode: 0
-  blurSize:
-    m_OverrideState: 1
-    m_Value: 0.00238
-    min: 0
-    max: 0.01
-  iterations:
-    m_OverrideState: 1
-    m_Value: 54
-    min: 1
-    max: 500
-  RTDownSample:
-    m_OverrideState: 1
-    m_Value: 2
-    min: 1
-    max: 10
-  start:
-    m_OverrideState: 1
-    m_Value: 1.49
-    min: 0
-    max: 10
-  end:
-    m_OverrideState: 1
-    m_Value: 45.4
-    min: 0
-    max: 100
-  density:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 1
-    max: 10

@@ -254,7 +254,7 @@ Shader "URP/Water" //Shader路径名
             }
             ENDHLSL
         }
-        UsePass "Universal Render Pipeline/Lit/DepthOnly"
+        //UsePass "Universal Render Pipeline/Lit/DepthOnly"
         UsePass "Universal Render Pipeline/Lit/ShadowCaster"
     }
 }

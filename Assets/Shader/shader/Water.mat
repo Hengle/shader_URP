@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water_Lab
+  m_Name: Water
   m_Shader: {fileID: 4800000, guid: bcac5eb87ecafc448b72ecf945ade746, type: 3}
   m_ShaderKeywords: _WORLDSPACETILING_ON
   m_LightmapFlags: 4
@@ -58,7 +58,7 @@ Material:
     - _DepthFactor: 1
     - _DepthMaxDistance: 1
     - _Depthdarkness: 0.5
-    - _EmitInt: 0.12
+    - _EmitInt: 0
     - _FoamAmount: 0.81
     - _FresnelPow: 3
     - _Fresnelexponent: 4
