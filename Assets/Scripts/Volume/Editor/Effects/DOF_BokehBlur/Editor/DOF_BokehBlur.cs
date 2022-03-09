@@ -14,12 +14,15 @@ public class DOF_BokehBlur : CustomVolumeComponent
     //景深
     public ClampedFloatParameter distance = new ClampedFloatParameter(0.001f, 0f, 2f);
     public ClampedFloatParameter lensCoeff = new ClampedFloatParameter(0f, 0f, 1f);
-    public ClampedFloatParameter rcpMaxCoC = new ClampedFloatParameter(1f, 0f, 10f);
+    public ClampedFloatParameter maxCoC = new ClampedFloatParameter(0.001f, 0f, 2f);
+    public ClampedFloatParameter rcpMaxCoC = new ClampedFloatParameter(0f, 0f, 1f);
+    public ClampedFloatParameter rcpAspect = new ClampedFloatParameter(1f, 0f, 10f);
+    public ClampedFloatParameter taaParams = new ClampedFloatParameter(1f, 0f, 10f);
 
     internal static readonly int BufferRT1 = Shader.PropertyToID("_BufferRT1");
 
     Material material;
-    const string shaderName = "URP/Post/DOF_BokehBlur";
+    const string shaderName = "URP/Post/Blur/DOF_BokehBlur";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 
@@ -47,9 +50,15 @@ public class DOF_BokehBlur : CustomVolumeComponent
         material.SetFloat("_BlurSize", blurSize.value);
         material.SetInt("_DownSample", RTDownSample.value);
         //景深
+        // material.SetFloat("_Distance", distance.value);
+        // material.SetFloat("_LensCoeff", lensCoeff.value);
+        // material.SetFloat("_RcpMaxCoC", rcpMaxCoC.value);
         material.SetFloat("_Distance", distance.value);
         material.SetFloat("_LensCoeff", lensCoeff.value);
+        material.SetFloat("_MaxCoC", maxCoC.value);
         material.SetFloat("_RcpMaxCoC", rcpMaxCoC.value);
+        material.SetFloat("_RcpAspect", rcpAspect.value);
+        material.SetFloat("_TaaParams", taaParams.value);
         //利用缩放对图像进行降采样
         int RTWidth = (int) (Screen.width / RTDownSample.value);
         int RTHeight = (int) (Screen.height / RTDownSample.value);

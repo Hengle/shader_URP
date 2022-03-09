@@ -3,22 +3,19 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering.Universal;
+using BoolParameter = UnityEngine.Rendering.BoolParameter;
 using FloatParameter = UnityEngine.Rendering.PostProcessing.FloatParameter;
 
 
-[VolumeComponentMenu(VolumeDefine.Glitch + "RGB颜色分离V4随机噪声 (RGB SplitV4)")]
-public class GlitchRGBSplitV4 : CustomVolumeComponent
+[VolumeComponentMenu(VolumeDefine.Glitch + "错位图块故障V3 (ImageBlockV3)")]
+public class GlitchImageBlockV3 : CustomVolumeComponent
 {
-    public DirectionEXParameter SplitDirection = new DirectionEXParameter(DirectionEX.Horizontal);
-
-    public ClampedFloatParameter indensity = new ClampedFloatParameter(0.0f, 0.0f, 1.0f);
-    public ClampedFloatParameter speed = new ClampedFloatParameter(10f, 0.0f, 100.0f);
-
-    private float randomFrequency;
-    private int frameCount = 0;
+    public ClampedFloatParameter Speed = new ClampedFloatParameter(0.0f, 0.0f, 50.0f);
+    public ClampedFloatParameter BlockSize = new ClampedFloatParameter(8f, 0.0f, 50.0f);
+    public BoolParameter BlockVisualizeDebug = new BoolParameter(false); // { value = false };
 
     Material material;
-    const string shaderName = "Hidden/PostProcessing/Glitch/RGBSplitV4";
+    const string shaderName = "Hidden/PostProcessing/Glitch/ImageBlockV3";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 
@@ -34,19 +31,27 @@ public class GlitchRGBSplitV4 : CustomVolumeComponent
 
     //需要注意的是，IsActive方法最好要在组件无效时返回false，避免组件未激活时仍然执行了渲染，
     //原因之前提到过，无论组件是否添加到Volume菜单中或是否勾选，VolumeManager总是会初始化所有的VolumeComponent。
-    public override bool IsActive() => material != null && indensity.value > 0f;
+    public override bool IsActive() => material != null && Speed.value > 0f;
 
     public override void Render(CommandBuffer cmd, ref RenderingData renderingData, RenderTargetIdentifier source, RenderTargetIdentifier destination)
     {
         if (material == null)
             return;
 
-        material.SetFloat("_Indensity", indensity.value);
-        material.SetFloat("_Speed", speed.value);
+
+        material.SetFloat("_Speed", Speed.value);
+        material.SetFloat("_BlockSize", BlockSize.value);
 
 
-        //临时RT到目标纹理
-        cmd.Blit(source, destination, material, (int) SplitDirection.value);
+        if (BlockVisualizeDebug == true)
+        {
+            //debug
+            cmd.Blit(source, destination, material, 1);
+        }
+        else
+        {
+            cmd.Blit(source, destination, material, 0);
+        }
     }
 
     public override void Dispose(bool disposing)

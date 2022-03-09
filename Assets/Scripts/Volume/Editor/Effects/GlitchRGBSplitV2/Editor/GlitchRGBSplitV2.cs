@@ -16,7 +16,7 @@ public class GlitchRGBSplitV2 : CustomVolumeComponent
     private float TimeX = 1.0f;
 
     Material material;
-    const string shaderName = "URP/Post/GlitchRGBSplitV2";
+    const string shaderName = "Hidden/PostProcessing/Glitch/RGBSplitV2";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 

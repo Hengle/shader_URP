@@ -1,4 +1,4 @@
-﻿Shader "URP/Post/BokehBlur"
+﻿Shader "URP/Post/Blur/BokehBlur"
 {
     Properties
     {

@@ -13,7 +13,7 @@ public class BokehBlur : CustomVolumeComponent
     internal static readonly int BufferRT1 = Shader.PropertyToID("_BufferRT1");
 
     Material material;
-    const string shaderName = "URP/Post/BokehBlur";
+    const string shaderName = "URP/Post/Blur/BokehBlur";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 

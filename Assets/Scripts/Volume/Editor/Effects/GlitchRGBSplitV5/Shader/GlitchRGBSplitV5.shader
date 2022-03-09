@@ -1,4 +1,4 @@
-﻿Shader "URP/Post/GlitchRGBSplitV5"
+﻿Shader "Hidden/PostProcessing/Glitch/RGBSplitV5"
 {
     Properties
     {

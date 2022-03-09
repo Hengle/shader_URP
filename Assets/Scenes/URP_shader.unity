@@ -3958,7 +3958,7 @@ Transform:
   m_Children:
   - {fileID: 694106013}
   m_Father: {fileID: 1974990796}
-  m_RootOrder: 48
+  m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!23 &814289134
 MeshRenderer:
@@ -9797,9 +9797,9 @@ Transform:
   - {fileID: 265524746}
   - {fileID: 395065001}
   - {fileID: 2063938887}
+  - {fileID: 814289133}
   - {fileID: 1833000264}
   - {fileID: 704228087}
-  - {fileID: 814289133}
   - {fileID: 235316463}
   - {fileID: 849452377}
   - {fileID: 616958228}
