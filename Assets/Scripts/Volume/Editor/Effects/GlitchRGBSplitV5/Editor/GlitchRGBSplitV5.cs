@@ -3,20 +3,22 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering.Universal;
+using FloatParameter = UnityEngine.Rendering.PostProcessing.FloatParameter;
 
 
-[VolumeComponentMenu(VolumeDefine.Glitch + "RGB颜色分离V2多级sin混合 (RGB SplitV2)")]
-public class GlitchRGBSplitV2 : CustomVolumeComponent
+[VolumeComponentMenu(VolumeDefine.Glitch + "RGB颜色分离V5 (RGB SplitV5)")]
+public class GlitchRGBSplitV5 : CustomVolumeComponent
 {
     public DirectionEXParameter SplitDirection = new DirectionEXParameter(DirectionEX.Horizontal);
 
-    public ClampedFloatParameter amount = new ClampedFloatParameter(0f, 0f, 1f);
-    public ClampedFloatParameter amplitude = new ClampedFloatParameter(3f, 1f, 6f);
-    public ClampedFloatParameter speed = new ClampedFloatParameter(1f, 0f, 2f);
-    private float TimeX = 1.0f;
+    public ClampedFloatParameter indensity = new ClampedFloatParameter(0.0f, 0.0f, 1.0f);
+    public ClampedFloatParameter speed = new ClampedFloatParameter(10f, 0.0f, 100.0f);
+
+    private float randomFrequency;
+    private int frameCount = 0;
 
     Material material;
-    const string shaderName = "URP/Post/GlitchRGBSplitV2";
+    const string shaderName = "URP/Post/GlitchRGBSplitV5";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 
@@ -32,22 +34,15 @@ public class GlitchRGBSplitV2 : CustomVolumeComponent
 
     //需要注意的是，IsActive方法最好要在组件无效时返回false，避免组件未激活时仍然执行了渲染，
     //原因之前提到过，无论组件是否添加到Volume菜单中或是否勾选，VolumeManager总是会初始化所有的VolumeComponent。
-    public override bool IsActive() => material != null && amount.value > 0f;
+    public override bool IsActive() => material != null && indensity.value > 0f;
 
     public override void Render(CommandBuffer cmd, ref RenderingData renderingData, RenderTargetIdentifier source, RenderTargetIdentifier destination)
     {
         if (material == null)
             return;
 
-        TimeX += Time.deltaTime;
-        if (TimeX > 100)
-        {
-            TimeX = 0;
-        }
-
-        material.SetFloat("_Amount", amount.value);
-        material.SetFloat("_Amplitude", amplitude.value);
-        material.SetFloat("_TimeX", TimeX * speed.value);
+        material.SetFloat("_Indensity", indensity.value);
+        material.SetFloat("_Speed", speed.value);
 
 
         //临时RT到目标纹理

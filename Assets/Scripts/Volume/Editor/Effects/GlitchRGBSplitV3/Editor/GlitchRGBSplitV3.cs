@@ -3,20 +3,24 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering.Universal;
+using FloatParameter = UnityEngine.Rendering.PostProcessing.FloatParameter;
 
 
-[VolumeComponentMenu(VolumeDefine.Glitch + "RGB颜色分离V2多级sin混合 (RGB SplitV2)")]
-public class GlitchRGBSplitV2 : CustomVolumeComponent
+[VolumeComponentMenu(VolumeDefine.Glitch + "RGB颜色分离V3多级sin延迟跟随 (RGB SplitV3)")]
+public class GlitchRGBSplitV3 : CustomVolumeComponent
 {
     public DirectionEXParameter SplitDirection = new DirectionEXParameter(DirectionEX.Horizontal);
-
-    public ClampedFloatParameter amount = new ClampedFloatParameter(0f, 0f, 1f);
-    public ClampedFloatParameter amplitude = new ClampedFloatParameter(3f, 1f, 6f);
-    public ClampedFloatParameter speed = new ClampedFloatParameter(1f, 0f, 2f);
-    private float TimeX = 1.0f;
+    public IntervalTypeParameter intervalType = new IntervalTypeParameter(IntervalType.Random);
+    
+    public ClampedFloatParameter amount = new ClampedFloatParameter(0f, 0f, 200f);
+    public ClampedFloatParameter frequency = new ClampedFloatParameter(3f, 0.1f, 25f);
+    public ClampedFloatParameter speed = new ClampedFloatParameter(15f, 0f, 15f);
+    
+    private float randomFrequency;
+    private int frameCount = 0;
 
     Material material;
-    const string shaderName = "URP/Post/GlitchRGBSplitV2";
+    const string shaderName = "URP/Post/GlitchRGBSplitV3";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 
@@ -34,20 +38,39 @@ public class GlitchRGBSplitV2 : CustomVolumeComponent
     //原因之前提到过，无论组件是否添加到Volume菜单中或是否勾选，VolumeManager总是会初始化所有的VolumeComponent。
     public override bool IsActive() => material != null && amount.value > 0f;
 
+    void UpdateFrequency(ClampedFloatParameter frequency)
+    {
+        if (intervalType.value == IntervalType.Random)
+        {
+            if (frameCount > (int) frequency)
+            {
+                frameCount = 0;
+                randomFrequency = UnityEngine.Random.Range(0, (int) frequency);
+            }
+
+            frameCount++;
+        }
+
+        if (intervalType.value == IntervalType.Infinite)
+        {
+            material.EnableKeyword("USING_Frequency_INFINITE");
+        }
+        else
+        {
+            material.DisableKeyword("USING_Frequency_INFINITE");
+        }
+    }
+
     public override void Render(CommandBuffer cmd, ref RenderingData renderingData, RenderTargetIdentifier source, RenderTargetIdentifier destination)
     {
         if (material == null)
             return;
 
-        TimeX += Time.deltaTime;
-        if (TimeX > 100)
-        {
-            TimeX = 0;
-        }
+        UpdateFrequency(frequency);
 
         material.SetFloat("_Amount", amount.value);
-        material.SetFloat("_Amplitude", amplitude.value);
-        material.SetFloat("_TimeX", TimeX * speed.value);
+        material.SetFloat("_Frequency", frequency.value);
+        material.SetFloat("_Speed", speed.value);
 
 
         //临时RT到目标纹理
