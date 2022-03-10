@@ -3,24 +3,27 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering.Universal;
+using BoolParameter = UnityEngine.Rendering.BoolParameter;
 using FloatParameter = UnityEngine.Rendering.PostProcessing.FloatParameter;
 
 
-[VolumeComponentMenu(VolumeDefine.Glitch + "RGB颜色分离V3多级sin延迟跟随 (RGB SplitV3)")]
-public class GlitchRGBSplitV3 : CustomVolumeComponent
+[VolumeComponentMenu(VolumeDefine.Glitch + "图块抖动故障 (Tile Jitter Glitch)")]
+public class GlitchTileJitter : CustomVolumeComponent
 {
-    public DirectionEXParameter SplitDirection = new DirectionEXParameter(DirectionEX.Horizontal);
+    public DirectionParameter jitterDirection = new DirectionParameter(Direction.Horizontal);
     public IntervalTypeParameter intervalType = new IntervalTypeParameter(IntervalType.Random);
-    
-    public ClampedFloatParameter amount = new ClampedFloatParameter(0f, 0f, 200f);
-    public ClampedFloatParameter frequency = new ClampedFloatParameter(3f, 0.1f, 25f);
-    public ClampedFloatParameter speed = new ClampedFloatParameter(15f, 0f, 15f);
-    
+
+    public ClampedFloatParameter frequency = new ClampedFloatParameter(1f, 0.0f, 25.0f);
+    public DirectionParameter splittingDirection = new DirectionParameter(Direction.Vertical);
+
+    public ClampedFloatParameter splittingNumber = new ClampedFloatParameter(5f, 0.0f, 50.0f);
+    public ClampedFloatParameter jitterAmount = new ClampedFloatParameter(0f, 0.0f, 100.0f);
+    public ClampedFloatParameter jitterSpeed = new ClampedFloatParameter(0.35f, 0.0f, 1.0f);
+
     private float randomFrequency;
-    private int frameCount = 0;
 
     Material material;
-    const string shaderName = "Hidden/PostProcessing/Glitch/RGBSplitV3";
+    const string shaderName = "Hidden/PostProcessing/Glitch/TileJitter";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 
@@ -36,28 +39,22 @@ public class GlitchRGBSplitV3 : CustomVolumeComponent
 
     //需要注意的是，IsActive方法最好要在组件无效时返回false，避免组件未激活时仍然执行了渲染，
     //原因之前提到过，无论组件是否添加到Volume菜单中或是否勾选，VolumeManager总是会初始化所有的VolumeComponent。
-    public override bool IsActive() => material != null && amount.value > 0f;
+    public override bool IsActive() => material != null && jitterAmount.value > 0f;
 
     void UpdateFrequency(ClampedFloatParameter frequency)
     {
         if (intervalType.value == IntervalType.Random)
         {
-            if (frameCount > (float) frequency)
-            {
-                frameCount = 0;
-                randomFrequency = UnityEngine.Random.Range(0, (float) frequency);
-            }
-
-            frameCount++;
+            randomFrequency = UnityEngine.Random.Range(0, (float) frequency);
         }
 
         if (intervalType.value == IntervalType.Infinite)
         {
-            material.EnableKeyword("USING_Frequency_INFINITE");
+            material.EnableKeyword("USING_FREQUENCY_INFINITE");
         }
         else
         {
-            material.DisableKeyword("USING_Frequency_INFINITE");
+            material.DisableKeyword("USING_FREQUENCY_INFINITE");
         }
     }
 
@@ -68,13 +65,21 @@ public class GlitchRGBSplitV3 : CustomVolumeComponent
 
         UpdateFrequency(frequency);
 
-        material.SetFloat("_Amount", amount.value);
-        material.SetFloat("_Frequency", frequency.value);
-        material.SetFloat("_Speed", speed.value);
+        if (jitterDirection.value == Direction.Horizontal)
+        {
+            material.EnableKeyword("JITTER_DIRECTION_HORIZONTAL");
+        }
+        else
+        {
+            material.DisableKeyword("JITTER_DIRECTION_HORIZONTAL");
+        }
 
+        material.SetFloat("_SplittingNumber", splittingNumber.value);
+        material.SetFloat("_JitterAmount", jitterAmount.value);
+        material.SetFloat("_JitterSpeed", jitterSpeed.value);
+        material.SetFloat("_Frequency", intervalType.value == IntervalType.Random ? randomFrequency : frequency.value);
 
-        //临时RT到目标纹理
-        cmd.Blit(source, destination, material, (int) SplitDirection.value);
+        cmd.Blit(source, destination, material, splittingDirection.value == Direction.Horizontal ? 0 : 1);
     }
 
     public override void Dispose(bool disposing)

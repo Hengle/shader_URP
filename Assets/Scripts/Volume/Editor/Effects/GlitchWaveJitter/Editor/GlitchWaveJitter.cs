@@ -3,24 +3,28 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering.Universal;
+using BoolParameter = UnityEngine.Rendering.BoolParameter;
 using FloatParameter = UnityEngine.Rendering.PostProcessing.FloatParameter;
+using Vector2Parameter = UnityEngine.Rendering.Vector2Parameter;
 
 
-[VolumeComponentMenu(VolumeDefine.Glitch + "RGB颜色分离V3多级sin延迟跟随 (RGB SplitV3)")]
-public class GlitchRGBSplitV3 : CustomVolumeComponent
+[VolumeComponentMenu(VolumeDefine.Glitch + "波形抖动故障 (Wave Jitter Glitch)")]
+public class GlitchWaveJitter : CustomVolumeComponent
 {
-    public DirectionEXParameter SplitDirection = new DirectionEXParameter(DirectionEX.Horizontal);
+    public DirectionParameter jitterDirection = new DirectionParameter(Direction.Horizontal);
     public IntervalTypeParameter intervalType = new IntervalTypeParameter(IntervalType.Random);
-    
-    public ClampedFloatParameter amount = new ClampedFloatParameter(0f, 0f, 200f);
-    public ClampedFloatParameter frequency = new ClampedFloatParameter(3f, 0.1f, 25f);
-    public ClampedFloatParameter speed = new ClampedFloatParameter(15f, 0f, 15f);
-    
+
+    public ClampedFloatParameter frequency = new ClampedFloatParameter(5f, 0.0f, 50.0f);
+    public ClampedFloatParameter RGBSplit = new ClampedFloatParameter(20f, 0.0f, 50.0f);
+    public ClampedFloatParameter speed = new ClampedFloatParameter(0.25f, 0.0f, 1.0f);
+    public ClampedFloatParameter amount = new ClampedFloatParameter(0f, 0.0f, 2.0f);
+    public BoolParameter customResolution = new BoolParameter(false);
+    public Vector2Parameter resolution = new Vector2Parameter(new Vector2(640f, 480f));
+
     private float randomFrequency;
-    private int frameCount = 0;
 
     Material material;
-    const string shaderName = "Hidden/PostProcessing/Glitch/RGBSplitV3";
+    const string shaderName = "Hidden/PostProcessing/Glitch/WaveJitter";
 
     public override CustomPostProcessInjectionPoint InjectionPoint => CustomPostProcessInjectionPoint.AfterPostProcess;
 
@@ -42,22 +46,16 @@ public class GlitchRGBSplitV3 : CustomVolumeComponent
     {
         if (intervalType.value == IntervalType.Random)
         {
-            if (frameCount > (float) frequency)
-            {
-                frameCount = 0;
-                randomFrequency = UnityEngine.Random.Range(0, (float) frequency);
-            }
-
-            frameCount++;
+            randomFrequency = UnityEngine.Random.Range(0, (float) frequency);
         }
 
         if (intervalType.value == IntervalType.Infinite)
         {
-            material.EnableKeyword("USING_Frequency_INFINITE");
+            material.EnableKeyword("USING_FREQUENCY_INFINITE");
         }
         else
         {
-            material.DisableKeyword("USING_Frequency_INFINITE");
+            material.DisableKeyword("USING_FREQUENCY_INFINITE");
         }
     }
 
@@ -68,13 +66,13 @@ public class GlitchRGBSplitV3 : CustomVolumeComponent
 
         UpdateFrequency(frequency);
 
-        material.SetFloat("_Amount", amount.value);
-        material.SetFloat("_Frequency", frequency.value);
+        material.SetFloat("_Frequency", intervalType.value == IntervalType.Random ? randomFrequency : frequency.value);
+        material.SetFloat("_RGBSplit", RGBSplit.value);
         material.SetFloat("_Speed", speed.value);
+        material.SetFloat("_Amount", amount.value);
+        material.SetVector("_Resolution", customResolution.value ? resolution.value : new Vector2(Screen.width, Screen.height));
 
-
-        //临时RT到目标纹理
-        cmd.Blit(source, destination, material, (int) SplitDirection.value);
+        cmd.Blit(source, destination, material, jitterDirection.value == Direction.Horizontal ? 0 : 1);
     }
 
     public override void Dispose(bool disposing)
