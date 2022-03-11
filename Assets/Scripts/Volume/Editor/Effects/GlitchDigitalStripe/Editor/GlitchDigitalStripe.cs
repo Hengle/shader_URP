@@ -12,15 +12,21 @@ using Vector2Parameter = UnityEngine.Rendering.Vector2Parameter;
 [VolumeComponentMenu(VolumeDefine.Glitch + "数字条纹故障 (Digital Stripe Glitch)")]
 public class GlitchDigitalStripe : CustomVolumeComponent
 {
-    public ClampedFloatParameter intensity = new ClampedFloatParameter(0.25f, 0.0f, 1.0f);
-    public ClampedFloatParameter frequency = new ClampedFloatParameter(5f, 1f, 10f);
+    public ClampedFloatParameter intensity = new ClampedFloatParameter(0f, 0.0f, 1.0f);
+    public ClampedIntParameter frequency = new ClampedIntParameter(5, 1, 10);
     public ClampedFloatParameter stripeLength = new ClampedFloatParameter(0.89f, 0.0f, 0.99f);
     public ClampedIntParameter noiseTextureWidth = new ClampedIntParameter(20, 8, 256);
     public ClampedIntParameter noiseTextureHeight = new ClampedIntParameter(20, 8, 256);
     public BoolParameter needStripColorAdjust = new BoolParameter(false);
+
     [ColorUsageAttribute(true, true, 0f, 20f, 0.125f, 3f)]
-    public ColorParameter resolution = new ColorParameter(new Color(0.1f, 0.1f, 0.1f));
+    public ColorParameter StripColorAdjustColor = new ColorParameter(new Color(0.1f, 0.1f, 0.1f));
+
     public ClampedFloatParameter StripColorAdjustIndensity = new ClampedFloatParameter(2f, 0f, 10f);
+
+    Texture2D _noiseTexture;
+    RenderTexture _trashFrame1;
+    RenderTexture _trashFrame2;
 
     private float randomFrequency;
 
@@ -43,22 +49,75 @@ public class GlitchDigitalStripe : CustomVolumeComponent
     //原因之前提到过，无论组件是否添加到Volume菜单中或是否勾选，VolumeManager总是会初始化所有的VolumeComponent。
     public override bool IsActive() => material != null && intensity.value > 0f;
 
+    public static Color RandomColor()
+    {
+        return new Color(Random.value, Random.value, Random.value, Random.value);
+    }
 
+    void UpdateNoiseTexture(int frame, int noiseTextureWidth, int noiseTextureHeight, float stripLength)
+    {
+        int frameCount = Time.frameCount;
+        if (frameCount % frame != 0)
+        {
+            return;
+        }
+
+        _noiseTexture = new Texture2D(noiseTextureWidth, noiseTextureHeight, TextureFormat.ARGB32, false);
+        _noiseTexture.wrapMode = TextureWrapMode.Clamp;
+        _noiseTexture.filterMode = FilterMode.Point;
+
+        _trashFrame1 = new RenderTexture(Screen.width, Screen.height, 0);
+        _trashFrame2 = new RenderTexture(Screen.width, Screen.height, 0);
+        _trashFrame1.hideFlags = HideFlags.DontSave;
+        _trashFrame2.hideFlags = HideFlags.DontSave;
+
+        Color32 color = RandomColor();
+
+        for (int y = 0; y < _noiseTexture.height; y++)
+        {
+            for (int x = 0; x < _noiseTexture.width; x++)
+            {
+                //随机值若大于给定strip随机阈值，重新随机颜色
+                if (UnityEngine.Random.value > stripLength)
+                {
+                    color = RandomColor();
+                }
+
+                //设置贴图像素值
+                _noiseTexture.SetPixel(x, y, color);
+            }
+        }
+
+        _noiseTexture.Apply();
+
+        var bytes = _noiseTexture.EncodeToPNG();
+    }
 
     public override void Render(CommandBuffer cmd, ref RenderingData renderingData, RenderTargetIdentifier source, RenderTargetIdentifier destination)
     {
         if (material == null)
             return;
 
-        UpdateFrequency(frequency);
+        UpdateNoiseTexture((int) frequency, (int) noiseTextureWidth, (int) noiseTextureHeight, (float) stripeLength);
 
-        material.SetFloat("_Frequency", intervalType.value == IntervalType.Random ? randomFrequency : frequency.value);
-        material.SetFloat("_RGBSplit", RGBSplit.value);
-        material.SetFloat("_Speed", speed.value);
-        material.SetFloat("_Amount", amount.value);
-        material.SetVector("_Resolution", customResolution.value ? resolution.value : new Vector2(Screen.width, Screen.height));
+        material.SetFloat("_Indensity", intensity.value);
+        if (_noiseTexture != null)
+        {
+            material.SetTexture("_NoiseTex", _noiseTexture);
+        }
 
-        cmd.Blit(source, destination, material, jitterDirection.value == Direction.Horizontal ? 0 : 1);
+        if (needStripColorAdjust == true)
+        {
+            material.EnableKeyword("NEED_TRASH_FRAME");
+            material.SetColor("_StripColorAdjustColor", StripColorAdjustColor.value);
+            material.SetFloat("_StripColorAdjustIndensity", StripColorAdjustIndensity.value);
+        }
+        else
+        {
+            material.DisableKeyword("NEED_TRASH_FRAME");
+        }
+
+        cmd.Blit(source, destination, material, 0);
     }
 
     public override void Dispose(bool disposing)
