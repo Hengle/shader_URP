@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ee3a1484550d74abcb8be070b58b97, type: 3}
   m_Name: GlitchImageBlockV4
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   Speed:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 8.1
     min: 0
     max: 50
   BlockSize:
     m_OverrideState: 1
-    m_Value: 17
+    m_Value: 23.7
     min: 0
     max: 50
   MaxRGBSplitX:
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74f1507424ae834ebda6a06b9a38943, type: 3}
   m_Name: GlitchAnalogNoise
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   NoiseSpeed:
     m_OverrideState: 1
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c92ce821d5fe0245923bc7159faa356, type: 3}
   m_Name: GlitchRGBSplitV3
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   SplitDirection:
     m_OverrideState: 1
@@ -88,12 +88,12 @@ MonoBehaviour:
     m_Value: 2
   amount:
     m_OverrideState: 1
-    m_Value: 86
+    m_Value: 55.3
     min: 0
     max: 200
   frequency:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 5.74
     min: 0.1
     max: 25
   speed:
@@ -113,19 +113,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce5c91a90d758e549b66a871683869fe, type: 3}
   m_Name: GlitchRGBSplitV5
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   SplitDirection:
     m_OverrideState: 1
     m_Value: 0
   indensity:
     m_OverrideState: 1
-    m_Value: 0.04
+    m_Value: 0.105
     min: 0
     max: 1
   speed:
     m_OverrideState: 1
-    m_Value: 7.1
+    m_Value: 12.6
     min: 0
     max: 100
 --- !u!114 &-4915965394078940534
@@ -140,19 +140,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89b3284045765c42a2e2b22cfad2ebb, type: 3}
   m_Name: GlitchRGBSplit
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   SplitDirection:
     m_OverrideState: 1
     m_Value: 0
   amount:
     m_OverrideState: 1
-    m_Value: 1.76
+    m_Value: 1.2
     min: 0
     max: 5
   speed:
     m_OverrideState: 1
-    m_Value: 2.2
+    m_Value: 2.62
     min: 0
     max: 10
   fading:
@@ -167,12 +167,12 @@ MonoBehaviour:
     max: 1
   amountR:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 1.51
     min: 0
     max: 5
   amountB:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 1.53
     min: 0
     max: 5
 --- !u!114 &-3874317580694142171
@@ -187,14 +187,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a03439559d4c3d34ab65aec5b9e88296, type: 3}
   m_Name: GlitchScreenJump
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   ScreenJumpDirection:
     m_OverrideState: 1
     m_Value: 0
   ScreenJumpIndensity:
     m_OverrideState: 1
-    m_Value: 0.09
+    m_Value: 0.08
     min: 0
     max: 1
 --- !u!114 &-2478515507677699569
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3291b7d4b4fa83c4c85522218ec6561a, type: 3}
   m_Name: GlitchLineBlock
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   blockDirection:
     m_OverrideState: 1
@@ -219,12 +219,12 @@ MonoBehaviour:
     m_Value: 2
   frequency:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 1.45
     min: 0
     max: 25
   Amount:
     m_OverrideState: 1
-    m_Value: 0.23
+    m_Value: 0.119
     min: 0
     max: 1
   LinesWidth:
@@ -259,14 +259,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66fcd490152803b4cbd53dbf680fcfaa, type: 3}
   m_Name: GlitchScreenShake
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   ScreenJumpDirection:
     m_OverrideState: 1
     m_Value: 0
   ScreenShakeIndensity:
     m_OverrideState: 1
-    m_Value: 0.22
+    m_Value: 0.098
     min: 0
     max: 1
 --- !u!114 &11400000
@@ -311,11 +311,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e96912ed91316c409a5037bbc4d9c3c, type: 3}
   m_Name: GlitchImageBlockV2
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   Fade:
     m_OverrideState: 1
-    m_Value: 0.294
+    m_Value: 0.123
     min: 0
     max: 1
   Speed:
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eac467802358694f9131ceaeb25782c, type: 3}
   m_Name: GlitchTileJitter
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   jitterDirection:
     m_OverrideState: 1
@@ -373,7 +373,7 @@ MonoBehaviour:
     m_Value: 2
   frequency:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 12.74
     min: 0
     max: 25
   splittingDirection:
@@ -381,12 +381,12 @@ MonoBehaviour:
     m_Value: 1
   splittingNumber:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 6.8
     min: 0
     max: 50
   jitterAmount:
     m_OverrideState: 1
-    m_Value: 4.91
+    m_Value: 50.9
     min: 0
     max: 100
   jitterSpeed:
@@ -406,11 +406,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c0e90fb07a7b44a887b826db27eef2, type: 3}
   m_Name: GlitchDigitalStripe
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.92
+    m_Value: 0.462
     min: 0
     max: 1
   frequency:
@@ -438,7 +438,7 @@ MonoBehaviour:
     m_Value: 0
   StripColorAdjustColor:
     m_OverrideState: 1
-    m_Value: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+    m_Value: {r: 0.15966538, g: 0.8679245, b: 0.77048296, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
@@ -459,19 +459,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccf22fea0635d94aa4d62e259dbc14c, type: 3}
   m_Name: GlitchRGBSplitV4
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   SplitDirection:
     m_OverrideState: 1
     m_Value: 0
   indensity:
     m_OverrideState: 1
-    m_Value: 0.04
+    m_Value: 0.037
     min: 0
     max: 1
   speed:
     m_OverrideState: 1
-    m_Value: 6.75
+    m_Value: 4
     min: 0
     max: 100
 --- !u!114 &3260486462522565732
@@ -486,16 +486,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ae6fb57696bf04f884484d9e8db9af, type: 3}
   m_Name: GlitchImageBlock
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   Fade:
     m_OverrideState: 1
-    m_Value: 0.394
+    m_Value: 0.495
     min: 0
     max: 1
   Speed:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.871
     min: 0
     max: 1
   Amount:
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb74a15c0eec8b4db4d7fc68c3c116b, type: 3}
   m_Name: GlitchScanLineJitter
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   JitterDirection:
     m_OverrideState: 1
@@ -563,7 +563,7 @@ MonoBehaviour:
     m_Value: 2
   frequency:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 6.2
     min: 0
     max: 25
   JitterIndensity:
@@ -583,16 +583,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92695d5aef31da469fcec99e2ee033e, type: 3}
   m_Name: GlitchImageBlockV3
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   Speed:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 14.5
     min: 0
     max: 50
   BlockSize:
     m_OverrideState: 1
-    m_Value: 13.8
+    m_Value: 14.9
     min: 0
     max: 50
   BlockVisualizeDebug:
@@ -610,7 +610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae2df95e56c7134cb06fbf7dc65aebf, type: 3}
   m_Name: GlitchWaveJitter
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   jitterDirection:
     m_OverrideState: 1
@@ -620,12 +620,12 @@ MonoBehaviour:
     m_Value: 2
   frequency:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 11.5
     min: 0
     max: 50
   RGBSplit:
     m_OverrideState: 1
-    m_Value: 20
+    m_Value: 17.6
     min: 0
     max: 50
   speed:
@@ -656,23 +656,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f936816822a10845bc79c1328b0c50d, type: 3}
   m_Name: GlitchRGBSplitV2
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   SplitDirection:
     m_OverrideState: 1
     m_Value: 0
   amount:
     m_OverrideState: 1
-    m_Value: 0.43
+    m_Value: 0.352
     min: 0
     max: 1
   amplitude:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 2.72
     min: 1
     max: 6
   speed:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.56
     min: 0
     max: 2
