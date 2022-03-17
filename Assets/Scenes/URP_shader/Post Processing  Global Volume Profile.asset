@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: Post Processing  Global Volume Profile
   m_EditorClassIdentifier: 
   components:
+  - {fileID: 9130450080886625199}
   - {fileID: -4915965394078940534}
   - {fileID: 9026399469725604866}
   - {fileID: -7803498434949242581}
@@ -299,6 +300,7 @@ MonoBehaviour:
   - {fileID: 3973770665140019993}
   - {fileID: -3874317580694142171}
   - {fileID: -886721236365128076}
+  - {fileID: 6903450058575743695}
 --- !u!114 &537005250388184029
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -644,6 +646,35 @@ MonoBehaviour:
   resolution:
     m_OverrideState: 1
     m_Value: {x: 640, y: 480}
+--- !u!114 &6903450058575743695
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d281c9a6fa1541b4f813b2c13d795f9d, type: 3}
+  m_Name: RainDrop
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  Size:
+    m_OverrideState: 1
+    m_Value: 3
+    min: 0
+    max: 100
+  T:
+    m_OverrideState: 1
+    m_Value: 50
+    min: 0
+    max: 50
+  Distortion:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 1
 --- !u!114 &9026399469725604866
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -676,3 +707,32 @@ MonoBehaviour:
     m_Value: 0.56
     min: 0
     max: 2
+--- !u!114 &9130450080886625199
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56020a790e51ef443834facfbb557d69, type: 3}
+  m_Name: BokehBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  blurSize:
+    m_OverrideState: 1
+    m_Value: 0.00079
+    min: 0
+    max: 0.01
+  iterations:
+    m_OverrideState: 1
+    m_Value: 155
+    min: 1
+    max: 500
+  RTDownSample:
+    m_OverrideState: 1
+    m_Value: 2
+    min: 1
+    max: 10
