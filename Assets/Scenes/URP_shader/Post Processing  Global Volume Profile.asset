@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d281c9a6fa1541b4f813b2c13d795f9d, type: 3}
   m_Name: RainDrop
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   Size:
     m_OverrideState: 1
@@ -719,7 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56020a790e51ef443834facfbb557d69, type: 3}
   m_Name: BokehBlur
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   blurSize:
     m_OverrideState: 1
