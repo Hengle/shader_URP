@@ -301,6 +301,7 @@ MonoBehaviour:
   - {fileID: -3874317580694142171}
   - {fileID: -886721236365128076}
   - {fileID: 6903450058575743695}
+  - {fileID: 8143576165617188110}
 --- !u!114 &537005250388184029
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -675,6 +676,48 @@ MonoBehaviour:
     m_Value: 1
     min: 0
     max: 1
+--- !u!114 &8143576165617188110
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e31aedce7c5f3441961db504d2a0410, type: 3}
+  m_Name: TiltShiftBlurV2
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  blurRadius:
+    m_OverrideState: 1
+    m_Value: 0.0021
+    min: 0
+    max: 0.01
+  iterations:
+    m_OverrideState: 1
+    m_Value: 57
+    min: 8
+    max: 128
+  centerOffset:
+    m_OverrideState: 1
+    m_Value: 0
+    min: -1
+    max: 1
+  AreaSize:
+    m_OverrideState: 1
+    m_Value: 3.8
+    min: 0
+    max: 20
+  areaSmooth:
+    m_OverrideState: 1
+    m_Value: 1.7
+    min: 1
+    max: 20
+  showPreview:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &9026399469725604866
 MonoBehaviour:
   m_ObjectHideFlags: 3

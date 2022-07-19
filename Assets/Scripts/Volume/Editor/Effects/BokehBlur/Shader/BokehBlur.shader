@@ -17,7 +17,6 @@
 
         float _BlurSize; //模糊强度
         float _Iteration; //迭代次数
-        float _DownSample; //降采样次数
 
         CBUFFER_END
 

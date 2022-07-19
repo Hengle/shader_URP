@@ -39,7 +39,6 @@ public class BokehBlur : CustomVolumeComponent
         //散景模糊
         material.SetFloat("_Iteration", iterations.value);
         material.SetFloat("_BlurSize", blurSize.value);
-        material.SetFloat("_DownSample", RTDownSample.value);
         //利用缩放对图像进行降采样
         int RTWidth = (int) (Screen.width / RTDownSample.value);
         int RTHeight = (int) (Screen.height / RTDownSample.value);
